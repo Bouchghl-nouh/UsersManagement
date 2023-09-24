@@ -60,19 +60,22 @@
 								</div>
 							</div>
 						</div>
-						
+						<div class="mb-3">
+							<button onclick="SortByAge()" class="btn btn-success">Sort By Age</button>
+							<button onclick="SortByName()" class="btn btn-success">Sort By UserName</button>
+						</div>
 						<div class="users">
 							<% users.forEach((user)=>{ %>
-								<div class="user" id="<%= user.id%>">
+								<div class="user" id="<%= user._id%>">
 								<img src="/img/<%= user.image%>" alt="image" width="100px" height="100px">
 								<p> username : <%= user.username%></p>
 								<p> age :  <%= user.age%></p>
 								<p>phoneNumber: <%= user.phoneNumber%></p>
 								<p>Salary: <%= user.salary%></p>
 								<div class="info">
-									<button onclick="DeleteUserApi('<%= user.id%>')"><i class="align-middle me-2" data-feather="trash"></i> </button>	
+									<button onclick="DeleteUserApi('<%= user._id%>')"><i class="align-middle me-2" data-feather="trash"></i> </button>	
 
-										<a href="/edit_user/<%= user.id%>"><i class="align-middle me-2" data-feather="edit"></i> </a>
+										<a href="/edit_user/<%= user._id%>"><i class="align-middle me-2" data-feather="edit"></i> </a>
 									
 								</div>
 						</div>

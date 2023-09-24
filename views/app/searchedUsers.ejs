@@ -1,0 +1,30 @@
+<main>
+    	<div class="container d-flex flex-column">
+			<div class="row vh-100">
+				<div class="col-sm-10 col-md-8 col-lg-6 col-xl-5 mx-auto d-table h-100">
+					<div class="d-table-cell align-middle">
+						<div class="text-center mt-4">
+							<h1 class="h2">Searched Users</h1>
+							
+						</div>
+						<div class="users">
+							<% users.forEach((user)=>{ %>
+								<div class="user" id="<%= user._id%>">
+								<img src="/img/<%= user.image%>" alt="image" width="100px" height="100px">
+								<p> username : <%= user.username%></p>
+								<p> age :  <%= user.age%></p>
+								<p>phoneNumber: <%= user.phoneNumber%></p>
+								<p>Salary: <%= user.salary%></p>
+								<div class="info">
+									<button onclick="DeleteUserApi('<%= user._id%>')"><i class="align-middle me-2" data-feather="trash"></i> </button>	
+
+										<a href="/edit_user/<%= user._id%>"><i class="align-middle me-2" data-feather="edit"></i> </a>
+									
+								</div>
+						</div>
+						<%});%>
+					</div>
+				</div>
+			</div>
+		</div>
+</main>

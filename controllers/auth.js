@@ -5,7 +5,7 @@ const {validationResult } = require('express-validator');
 // const Post = require('../models/Auth')
 const AdminLayout = '../views/layouts/main_App.ejs';
 const { insertAdminData, findAdmin } = require('../Api/AuthApi');
-const {GetUsers} = require('../Api/UserApi')
+const {GetUsers,SortingByName} = require('../Api/UserApi')
 exports.RenderRegister = (req, res) => {
     res.render('./auth/register')
 }
@@ -56,8 +56,8 @@ exports.UserRegister = async(req, res) => {
 }
 exports.RenderDash = async(req, res) => {
     const user = req.decoded;
-    const users = await GetUsers();
-    // res.render('layouts/main_App', { user,users,layout: AdminLayout });
+    
+     const users = await GetUsers();
     res.render('./app/dashboard', { user, users, layout: AdminLayout });
 }
 exports.userLogout = (req, res) => {

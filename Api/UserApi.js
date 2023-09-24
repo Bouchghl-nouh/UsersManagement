@@ -50,4 +50,34 @@ async function DeleteUser(id) {
     }  
 }
 
-     module.exports = { insertUserData,GetUsers,DeleteUser,GetUser,UpdateUser };
+async function SortingByName() {
+    try {
+        const sortedUsers = await Post.aggregate([
+            { $sort: { username: 1, age: 1 } }
+        ]).exec();
+
+        return sortedUsers;
+    } catch (err) {
+        console.error(err);
+    }
+}
+async function SortingByAge() {
+    try {
+        const sortedUsers = await Post.aggregate([
+            { $sort: { age: 1, username: 1 } }
+        ]).exec();
+
+        return sortedUsers;
+    } catch (err) {
+        console.error(err);
+    }
+}
+async function Searching(name) {
+    try {
+        const searchedUsers = await Post.find({ username: { $regex: name, $options: 'i' } });
+        return searchedUsers;
+    } catch (err) {
+        console.log(err);
+    }
+}
+     module.exports = { insertUserData,GetUsers,DeleteUser,GetUser,UpdateUser,SortingByName,SortingByAge,Searching };

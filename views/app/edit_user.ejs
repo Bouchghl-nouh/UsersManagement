@@ -12,39 +12,39 @@
 						<div class="card">
 							<div class="card-body">
 								<div class="m-sm-3">
-									<form action="/edit_user/<%= user._id%>" method="POST" enctype="multipart/form-data">
+									<form action="/edit_user/<%= User._id%>" method="POST" enctype="multipart/form-data">
 										<div class="mb-3">
 											<label class="form-label">Full name</label>
-											<input class="form-control form-control-lg" type="text" name="username" placeholder="Enter User's name" value="<%= user.username%>" />
+											<input class="form-control form-control-lg" type="text" name="username" placeholder="Enter User's name" value="<%= User.username%>" />
 										</div>
 										<div class="mb-3">
 											<label class="form-label">Age</label>
-											<input class="form-control form-control-lg" type="text" name="age" placeholder="Enter User's age"value="<%= user.age%>" />
+											<input class="form-control form-control-lg" type="text" name="age" placeholder="Enter User's age"value="<%= User.age%>" />
 										</div>
                                         	<div class="mb-3">
 											<label class="form-label">Phone Number</label>
-											<input class="form-control form-control-lg" type="text" name="phoneNumber" placeholder="Enter User's phone number" value="<%= user.phoneNumber%>" />
+											<input class="form-control form-control-lg" type="text" name="phoneNumber" placeholder="Enter User's phone number" value="<%= User.phoneNumber%>" />
 										</div>
                                         	<div class="mb-3">
 											<label class="form-label">Salary</label>
-											<input class="form-control form-control-lg" type="text" name="salary" placeholder="Enter User's Salary" value="<%= user.salary%>" />
+											<input class="form-control form-control-lg" type="text" name="salary" placeholder="Enter User's Salary" value="<%= User.salary%>" />
 										</div>
                                         <div class="mb-3">
                                             <div class="form-label">Role</div>					
-                                            <select class="form-select mb-3" name="role" value = "<%= user.role%>">
+                                            <select class="form-select mb-3" name="role" value = "<%= User.role%>">
           <option selected>user</option>
           <option>admin</option>
         </select>
                                         	<div class="mb-3">
 											<label class="form-label">Email</label>
-											<input class="form-control form-control-lg" type="email" name="email" placeholder="Enter User's email" value="<%= user.email%>" />
+											<input class="form-control form-control-lg" type="email" name="email" placeholder="Enter User's email" value="<%= User.email%>" />
 										</div>
 											<label class="form-label">Password</label>
-											<input class="form-control form-control-lg" type="password" name="password" placeholder="Enter User's Password" value="<%= user.password%>"/>
+											<input class="form-control form-control-lg" type="password" name="password" placeholder="Enter User's Password" value="<%= User.password%>"/>
 										</div>
 										<div class="mb-3">
 											<label for="verified">Verified:</label>
-											<% if ( user.verified) { %>
+											<% if ( User.verified) { %>
  											  <input type="checkbox" id="verified" name="verified" checked >
 												<% }else{ %>
  												  <input type="checkbox" id="verified" name="verified"  >
@@ -54,7 +54,7 @@
                                         
 										<div class="mb-3">
 											<label class="form-label">Avatar</label>
-											<input class="form-control form-control-lg" type="file" src="/img/<%= user.image%>"  name="image" accept="image/png, image/jpeg,image/jpg" />
+											<input class="form-control form-control-lg" type="file" src="/img/<%= User.image%>"  name="image" accept="image/png, image/jpeg,image/jpg" />
 										</div>
 										<div class="d-grid gap-2 mt-3">
 											<button type="submit" class="btn btn-lg btn-primary">Edit User</button>

@@ -1,5 +1,6 @@
-const { insertUserData, DeleteUser,UpdateUser } = require("../Api/UserApi");
+const { insertUserData, DeleteUser,UpdateUser,SortingByName,SortingByAge,Searching } = require("../Api/UserApi");
 const { GetUser } = require('../Api/UserApi');
+const AdminLayout = '../views/layouts/main_App.ejs';
  const xss = require("xss");
 exports.AddingUser = (req, res) => {
     const { username, age, phoneNumber, verified, salary, role, email, password } = req.body;
@@ -27,11 +28,12 @@ exports.deleteUser = async (req, res) => {
 }
 exports.getEditUser =async (req, res) => {
     const id = req.params.id;
-    const user = await GetUser(id);
+    const user = req.decoded;
+    const User = await GetUser(id);
     if (!user) {
         console.log("the user doesn't exist")
     }
-    res.render('./app/edit_user',{user});
+    res.render('./app/edit_user',{User,user,layout: AdminLayout });
 }
 exports.EditUser = async(req, res) => {
     const id = req.params.id;
@@ -61,4 +63,20 @@ exports.EditUser = async(req, res) => {
     // console.log(EditedUser)
     await UpdateUser(id, EditedUser);
     return res.redirect('../dashboard');
+}
+exports.sortedUser = async (req, res) => {
+    const user = req.decoded;
+     const users = await SortingByName();
+    res.render('./app/dashboard', { user, users, layout: AdminLayout });
+}
+exports.sortedUserAge = async (req, res) => {
+    const user = req.decoded;
+     const users = await SortingByAge();
+    res.render('./app/dashboard', { user, users, layout: AdminLayout });
+}
+exports.search = async (req, res) => {
+    const query = req.body.username;
+    const user = req.decoded;
+    const users = await Searching(query);
+    res.render('./app/searchedUsers',{user,users,layout: AdminLayout});
 }
