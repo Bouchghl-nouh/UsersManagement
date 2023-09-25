@@ -24,6 +24,14 @@ async function GetUser(id) {
         console.log(err);
     }
 }
+async function GetUserByName(name) {
+      try {
+        const user = await Post.findOne({username: name })
+        return user;
+    } catch (err) {
+        console.log(err);
+    }
+}
 async function UpdateUser(id, newUser) {
     try {
         return await Post.updateOne({ _id: id }, { $set:{
@@ -80,4 +88,4 @@ async function Searching(name) {
         console.log(err);
     }
 }
-     module.exports = { insertUserData,GetUsers,DeleteUser,GetUser,UpdateUser,SortingByName,SortingByAge,Searching };
+     module.exports = { insertUserData,GetUsers,DeleteUser,GetUser,UpdateUser,SortingByName,SortingByAge,Searching,GetUserByName };

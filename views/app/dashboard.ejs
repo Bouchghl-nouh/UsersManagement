@@ -1,3 +1,24 @@
+<style>
+	.users .user img{
+		border-radius: 50%;
+		width:70px;
+		height:70px;
+		margin-right: 10px;
+	}
+	.user{
+		display: flex;
+		justify-content: space-evenly;
+		margin:20px 0 ;
+	}
+	.user button{
+		background-color: transparent;
+		border:none;
+	}
+	.user .align-middle{
+		position: relative;
+		right:2px
+	}
+</style>
 <main>
     	<div class="container d-flex flex-column">
 			<div class="row vh-100">
@@ -65,15 +86,16 @@
 							<button onclick="SortByName()" class="btn btn-success">Sort By UserName</button>
 						</div>
 						<div class="users">
+							
 							<% users.forEach((user)=>{ %>
-								<div class="user" id="<%= user._id%>">
+								<div class="user" id="<%= user._id%>" >
 								<img src="/img/<%= user.image%>" alt="image" width="100px" height="100px">
 								<p> username : <%= user.username%></p>
 								<p> age :  <%= user.age%></p>
 								<p>phoneNumber: <%= user.phoneNumber%></p>
 								<p>Salary: <%= user.salary%></p>
 								<div class="info">
-									<button onclick="DeleteUserApi('<%= user._id%>')"><i class="align-middle me-2" data-feather="trash"></i> </button>	
+									<button onclick="DeleteUserApi('<%= user._id%>')"><i class="align-middle me-2" data-feather="trash" style="color: #3b7ddd;position: relative;right:4px"></i> </button>	
 
 										<a href="/edit_user/<%= user._id%>"><i class="align-middle me-2" data-feather="edit"></i> </a>
 									

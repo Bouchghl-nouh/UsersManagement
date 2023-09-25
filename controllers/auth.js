@@ -5,7 +5,8 @@ const {validationResult } = require('express-validator');
 // const Post = require('../models/Auth')
 const AdminLayout = '../views/layouts/main_App.ejs';
 const { insertAdminData, findAdmin } = require('../Api/AuthApi');
-const {GetUsers,SortingByName} = require('../Api/UserApi')
+const { GetUserByName } = require('../Api/UserApi');
+const {GetUsers} = require('../Api/UserApi')
 exports.RenderRegister = (req, res) => {
     res.render('./auth/register')
 }
@@ -23,18 +24,41 @@ exports.UserLogin =async(req, res) => {
         password: xss(password)
     };
     const admin = await findAdmin(secureData.username);
-    if (!admin) {
+    const user = await GetUserByName(secureData.username);
+
+    if (!admin && !user) {
         return res.send("You are not registered");
     }
-    bcrypt.compare(secureData.password, admin.password).then((valid) => {
-        if (!valid) {
-            return res.send("password incorrect");
+    if (admin) {
+        bcrypt.compare(secureData.password, admin.password).then((valid) => {
+            if (!valid) {
+                return res.send("Your password is incorrect");
+
+            } else {
+                const token = jwt.sign({
+                    username: admin.username, image: admin.image
+                }, process.env.secretKey);
+                res.cookie("token", token);
+                return res.redirect("dashboard");
+            }
+        })
+    }
+    if (user) {
+        if (user.password === secureData.password) {
+            const token = jwt.sign({
+                    username: user.username, image: user.image
+                }, process.env.secretKey);
+            res.cookie("token", token);
+            if (user.verified === false) {
+                return res.render('./app/notverified',{user,layout:AdminLayout});
+            } else {
+                return res.redirect("dashboard");
+            }
+                
+        } else {
+            res.send("your account doesn't exist");
         }
-    })
-    const token = jwt.sign({
-        username: admin.username, image: admin.image}, process.env.secretKey);
-    res.cookie("token", token);
-    return res.redirect("dashboard");
+    }
 }
 exports.UserRegister = async(req, res) => {
     const { username, email, password } = req.body;
@@ -56,8 +80,8 @@ exports.UserRegister = async(req, res) => {
 }
 exports.RenderDash = async(req, res) => {
     const user = req.decoded;
-    
-     const users = await GetUsers();
+    const oldUsers = await GetUsers();
+    const users = oldUsers.filter((newUser) => newUser.username !== user.username);
     res.render('./app/dashboard', { user, users, layout: AdminLayout });
 }
 exports.userLogout = (req, res) => {

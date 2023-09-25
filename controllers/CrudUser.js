@@ -40,13 +40,6 @@ exports.EditUser = async(req, res) => {
     const NewUser = req.body;
     const image = req.file;
     const user = await GetUser(id);
-    // if (NewUser.verified) {
-    //     NewUser.verified = true;
-    //     // console.log(NewUser.verified);
-    // } else {
-    //     NewUser.verified = false;
-    //     // console.log(NewUser.verified);
-    // }
     const verified = NewUser.verified == 'on' ? true : false;
     console.log(user);
     const EditedUser = {
